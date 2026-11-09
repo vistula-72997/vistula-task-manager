@@ -16,7 +16,7 @@ function showError(msg) {
 
 async function loadTasks() {
     try {
-        const res = await fetch(`${CONFIG.supabaseUrl}/rest/v1/${CONFIG.tableName}?select=*`, {
+        const res = await fetch(`${CONFIG.supabaseUrl}${CONFIG.tableName}?select=*`, {
             headers: {
                 'apikey': CONFIG.supabasePublishableKey,
                 'Authorization': `Bearer ${CONFIG.supabasePublishableKey}`
@@ -32,6 +32,11 @@ async function loadTasks() {
 function renderTasks(tasks) {
     const list = document.getElementById('task-list');
     list.innerHTML = '';
+    
+    if (!Array.isArray(tasks)) {
+        showError(tasks.message || "Failed to load tasks data.");
+        return;
+    }
     
     tasks.forEach(task => {
         const div = document.createElement('div');
@@ -57,7 +62,7 @@ document.getElementById('task-form').addEventListener('submit', async (e) => {
     const description = document.getElementById('task-description').value;
 
     const method = id ? 'PATCH' : 'POST';
-    const url = id ? `${CONFIG.supabaseUrl}/rest/v1/${CONFIG.tableName}?id=eq.${id}` : `${CONFIG.supabaseUrl}/rest/v1/${CONFIG.tableName}`;
+    const url = id ? `${CONFIG.supabaseUrl}${CONFIG.tableName}?id=eq.${id}` : `${CONFIG.supabaseUrl}${CONFIG.tableName}`;
 
     try {
         const res = await fetch(url, {
@@ -71,26 +76,31 @@ document.getElementById('task-form').addEventListener('submit', async (e) => {
             body: JSON.stringify({ title, description })
         });
 
-        if (!res.ok) throw new Error('Operation failed');
+        if (!res.ok) {
+            const errData = await res.json().catch(() => ({}));
+            throw new Error(errData.message || 'Operation failed');
+        }
 
         document.getElementById('task-form').reset();
         document.getElementById('task-id').value = '';
         document.getElementById('task-submit').textContent = 'Add Task';
+        showError(''); 
         loadTasks();
     } catch (err) {
-        showError("Failed to save task.");
+        showError("Failed to save task: " + err.message);
     }
 });
 
 async function deleteTask(id) {
     try {
-        await fetch(`${CONFIG.supabaseUrl}/rest/v1/${CONFIG.tableName}?id=eq.${id}`, {
+        const res = await fetch(`${CONFIG.supabaseUrl}${CONFIG.tableName}?id=eq.${id}`, {
             method: 'DELETE',
             headers: {
                 'apikey': CONFIG.supabasePublishableKey,
                 'Authorization': `Bearer ${CONFIG.supabasePublishableKey}`
             }
         });
+        if (!res.ok) throw new Error('Delete failed');
         loadTasks();
     } catch (err) {
         showError("Failed to delete task.");
@@ -99,7 +109,7 @@ async function deleteTask(id) {
 
 async function toggleTask(id, completed) {
     try {
-        await fetch(`${CONFIG.supabaseUrl}/rest/v1/${CONFIG.tableName}?id=eq.${id}`, {
+        const res = await fetch(`${CONFIG.supabaseUrl}${CONFIG.tableName}?id=eq.${id}`, {
             method: 'PATCH',
             headers: {
                 'apikey': CONFIG.supabasePublishableKey,
@@ -109,6 +119,7 @@ async function toggleTask(id, completed) {
             },
             body: JSON.stringify({ completed })
         });
+        if (!res.ok) throw new Error('Update failed');
         loadTasks();
     } catch (err) {
         showError("Failed to update status.");
@@ -123,6 +134,7 @@ function editTask(id, title, description) {
 }
 
 function escapeHtml(str) {
+    if (!str) return '';
     return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 }
 
