@@ -1,4 +1,3 @@
-
 let CONFIG = {};
 
 async function init() {
@@ -54,9 +53,10 @@ async function apiRequest(url, options = {}) {
         throw new Error(errorText || `HTTP ${response.status}`);
     }
 
-    if (response.status === 204) return null;
+    if (response.status === 204 || response.status === 201) return null;
 
-    return response.json();
+    const text = await response.text();
+    return text ? JSON.parse(text) : null;
 }
 
 async function loadTasks() {
