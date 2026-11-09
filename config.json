@@ -1,5 +1,5 @@
 {
   "supabaseUrl": "https://izivvwnypofwevskurqt.supabase.co/rest/v1/",
-  "supabasePublishableKey": "sb_publishable_jRboAYa1NWgmX5Mv_WdEpA_rDfCf63U",
+  "supabasePublishableKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml6aXZ2d255b3Bmd2V2c2t1cnF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQyNDc0ODcsImV4cCI6MjEwOTgyMzQ4N30.uzJ-8cTiceXmJ0kn3jJa1ZlqYvzaaOcr7_86Fyqeb_U",
   "tableName": "tasks"
 }
