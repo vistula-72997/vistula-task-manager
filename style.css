@@ -1,0 +1,218 @@
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-color: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --danger-hover: #dc2626;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.5;
+    padding: 2rem 1rem;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: var(--text-color);
+}
+
+.student-id {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+#status-message {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    min-height: 1.2rem;
+}
+
+#task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+#task-submit {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1rem;
+    padding: 0.75rem;
+}
+
+#task-submit:hover {
+    background-color: var(--primary-hover);
+}
+
+h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5s;
+    padding-bottom: 0.5rem;
+}
+
+#task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.task-item {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: box-shadow 0.2s;
+}
+
+.task-item:hover {
+    box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
+}
+
+.task-item.completed {
+    border-left-color: var(--success-color);
+    background-color: #f1fdf4;
+}
+
+.task-item.completed .task-title {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+.task-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.task-description {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.task-item p:has(.task-status) {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.task-status {
+    font-weight: 600;
+}
+
+.task-item.completed .task-status {
+    color: var(--success-color);
+}
+
+.task-item button {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+    margin-right: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.toggle-task {
+    background-color: #e0e7ff;
+    color: var(--primary-color);
+}
+.toggle-task:hover {
+    background-color: #c7d2fe;
+}
+
+.edit-task {
+    background-color: #fef3c7;
+    color: #d97706;
+}
+.edit-task:hover {
+    background-color: #fde68a;
+}
+
+.delete-task {
+    background-color: #fee2e2;
+    color: var(--danger-color);
+}
+.delete-task:hover {
+    background-color: #fecaca;
+}
+
+.team-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.team-link:hover {
+    text-decoration: underline;
+}
