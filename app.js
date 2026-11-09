@@ -16,7 +16,7 @@ function showError(msg) {
 
 async function loadTasks() {
     try {
-        const res = await fetch(`${CONFIG.supabaseUrl}${CONFIG.tableName}?select=*`, {
+        const res = await fetch(`${CONFIG.supabaseUrl}/rest/v1/${CONFIG.tableName}?select=*`, {
             headers: {
                 'apikey': CONFIG.supabasePublishableKey,
                 'Authorization': `Bearer ${CONFIG.supabasePublishableKey}`
@@ -62,7 +62,7 @@ document.getElementById('task-form').addEventListener('submit', async (e) => {
     const description = document.getElementById('task-description').value;
 
     const method = id ? 'PATCH' : 'POST';
-    const url = id ? `${CONFIG.supabaseUrl}${CONFIG.tableName}?id=eq.${id}` : `${CONFIG.supabaseUrl}${CONFIG.tableName}`;
+    const url = id ? `${CONFIG.supabaseUrl}/rest/v1/${CONFIG.tableName}?id=eq.${id}` : `${CONFIG.supabaseUrl}/rest/v1/${CONFIG.tableName}`;
 
     try {
         const res = await fetch(url, {
@@ -84,7 +84,7 @@ document.getElementById('task-form').addEventListener('submit', async (e) => {
         document.getElementById('task-form').reset();
         document.getElementById('task-id').value = '';
         document.getElementById('task-submit').textContent = 'Add Task';
-        showError(''); 
+        showError('');
         loadTasks();
     } catch (err) {
         showError("Failed to save task: " + err.message);
@@ -93,7 +93,7 @@ document.getElementById('task-form').addEventListener('submit', async (e) => {
 
 async function deleteTask(id) {
     try {
-        const res = await fetch(`${CONFIG.supabaseUrl}${CONFIG.tableName}?id=eq.${id}`, {
+        const res = await fetch(`${CONFIG.supabaseUrl}/rest/v1/${CONFIG.tableName}?id=eq.${id}`, {
             method: 'DELETE',
             headers: {
                 'apikey': CONFIG.supabasePublishableKey,
@@ -109,7 +109,7 @@ async function deleteTask(id) {
 
 async function toggleTask(id, completed) {
     try {
-        const res = await fetch(`${CONFIG.supabaseUrl}${CONFIG.tableName}?id=eq.${id}`, {
+        const res = await fetch(`${CONFIG.supabaseUrl}/rest/v1/${CONFIG.tableName}?id=eq.${id}`, {
             method: 'PATCH',
             headers: {
                 'apikey': CONFIG.supabasePublishableKey,
