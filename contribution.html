@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Contribution - Vistula Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        h1 { margin: 0; color: #2c3e50; }
+        .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        ul { line-height: 1.6; }
+        .nav-links { margin-top: 20px; font-size: 1.05em; }
+        a { color: #3498db; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Team Contribution Page</h1>
+        <p>Vistula Team Project - Task Manager</p>
+    </header>
+
+    <div class="card">
+        <h2>Developer Information</h2>
+        <p><strong>Student ID:</strong> <span id="contributor-id">Loading...</span></p>
+        <p><strong>GitHub Username:</strong> <code>vistula-team-project-73959</code></p>
+    </div>
+
+    <div class="card">
+        <h2>Contribution Details</h2>
+        <p>This page reflects the collaborative development efforts for the Task Manager web application integrated with Supabase PostgreSQL database.</p>
+        <ul>
+            <li>Implemented core CRUD operations (Create, Read, Update, Delete) for tasks via Supabase REST API.</li>
+            <li>Configured secure environment settings and RLS database policies.</li>
+            <li>Participated in peer review, repository testing, and cross-repository Pull Request integrations.</li>
+        </ul>
+    </div>
+
+    <div class="nav-links">
+        <a href="index.html">&larr; Back to Task Manager App</a>
+    </div>
+
+    <script>
+        fetch('contribution.json')
+            .then(response => response.json())
+            .then(data => {
+                if (data.contributorStudentId) {
+                    document.getElementById('contributor-id').textContent = data.contributorStudentId;
+                }
+            })
+            .catch(error => {
+                console.error('Error loading contribution.json:', error);
+                document.getElementById('contributor-id').textContent = '73959';
+            });
+    </script>
+</body>
+</html>
