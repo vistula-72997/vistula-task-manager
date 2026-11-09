@@ -1,0 +1,5 @@
+{
+  "supabaseUrl": "https://izivvwnyopfwevskurqt.supabase.co/rest/v1/",
+  "supabasePublishableKey": "sb_publishable_jRboAYa1NWgmX5Mv_WdEpA_rDfCf63U",
+  "tableName": "tasks"
+}
